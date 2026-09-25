@@ -11,6 +11,9 @@ import 'package:ai_coach_gym/features/auth/data/repositories/mock_auth_repositor
 import 'package:ai_coach_gym/features/auth/presentation/controllers/auth_provider.dart';
 import 'package:ai_coach_gym/features/history/presentation/controllers/history_provider.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ai_coach_gym/core/localization/app_localizations.dart';
+import 'package:ai_coach_gym/core/localization/locale_provider.dart';
 import 'package:ai_coach_gym/features/auth/presentation/screens/login_screen.dart';
 
 void main() {
@@ -41,12 +44,21 @@ void main() {
         providers: [
           Provider<LocalStorageService>.value(value: localStorage),
           ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider<LocaleProvider>(create: (_) => LocaleProvider(storage: localStorage)),
           ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
           ChangeNotifierProvider<AnalysisProvider>.value(value: analysisProvider),
           ChangeNotifierProvider<HistoryProvider>.value(value: historyProvider),
         ],
         child: MaterialApp(
           home: const LoginScreen(),
+          locale: const Locale('en'),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: const [
+            AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           onGenerateRoute: AppRouter.onGenerateRoute,
         ),
       ),

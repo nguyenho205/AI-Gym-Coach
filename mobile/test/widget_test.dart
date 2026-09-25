@@ -7,6 +7,7 @@ import 'package:ai_coach_gym/features/analysis/data/repositories/mock_analysis_r
 import 'package:ai_coach_gym/features/analysis/presentation/controllers/analysis_provider.dart';
 import 'package:ai_coach_gym/features/auth/data/repositories/mock_auth_repository.dart';
 import 'package:ai_coach_gym/features/auth/presentation/controllers/auth_provider.dart';
+import 'package:ai_coach_gym/core/localization/locale_provider.dart';
 import 'package:ai_coach_gym/features/history/presentation/controllers/history_provider.dart';
 import 'package:ai_coach_gym/main.dart';
 
@@ -22,6 +23,7 @@ void main() {
         providers: [
           Provider<LocalStorageService>.value(value: localStorage),
           ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider<LocaleProvider>(create: (_) => LocaleProvider(storage: localStorage)),
           ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider(authRepository: authRepo)),
           ChangeNotifierProvider<AnalysisProvider>(create: (_) => AnalysisProvider(analysisRepository: analysisRepo)),
           ChangeNotifierProvider<HistoryProvider>(create: (_) => HistoryProvider(analysisRepository: analysisRepo)),

@@ -23,6 +23,10 @@ import 'package:ai_coach_gym/features/video/data/models/video_model.dart';
 import 'package:ai_coach_gym/features/video/presentation/video_preview_screen.dart';
 import 'package:ai_coach_gym/features/video/presentation/video_selection_screen.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ai_coach_gym/core/localization/app_localizations.dart';
+import 'package:ai_coach_gym/core/localization/locale_provider.dart';
+
 Widget _buildTestableWidget({
   required Widget child,
   AuthProvider? authProvider,
@@ -42,12 +46,21 @@ Widget _buildTestableWidget({
     providers: [
       Provider<LocalStorageService>.value(value: localStorage),
       ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider<LocaleProvider>(create: (_) => LocaleProvider(storage: localStorage)),
       ChangeNotifierProvider<AuthProvider>(create: (_) => authProvider ?? AuthProvider(authRepository: authRepo)),
       ChangeNotifierProvider<AnalysisProvider>(create: (_) => analysisProvider ?? AnalysisProvider(analysisRepository: analysisRepo)),
       ChangeNotifierProvider<HistoryProvider>(create: (_) => historyProvider ?? HistoryProvider(analysisRepository: analysisRepo)),
     ],
     child: MaterialApp(
       home: child,
+      locale: const Locale('en'),
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       onGenerateRoute: AppRouter.onGenerateRoute,
     ),
   );
