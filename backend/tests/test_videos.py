@@ -57,3 +57,14 @@ def test_list_and_delete_video(client, auth_headers):
     # Verify deleted
     list_resp2 = client.get("/api/v1/videos", headers=auth_headers)
     assert not any(v["id"] == video_id for v in list_resp2.json())
+
+def test_get_exercises(client):
+    resp = client.get("/api/v1/exercises")
+    assert resp.status_code == 200
+    exercises = resp.json()
+    assert len(exercises) >= 3
+    ids = [e["id"] for e in exercises]
+    assert "squat" in ids
+    assert "pushup" in ids
+    assert "bicep_curl" in ids
+

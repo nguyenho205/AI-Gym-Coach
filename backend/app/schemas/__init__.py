@@ -10,6 +10,7 @@ from app.schemas.analysis import (
     AnalysisResponse
 )
 from app.schemas.history import HistoryItemResponse, HistoryListResponse
+from app.schemas.exercise import ExerciseResponse
 
 __all__ = [
     "UserBase", "UserCreate", "UserUpdate", "UserResponse",
@@ -17,5 +18,6 @@ __all__ = [
     "VideoUploadResponse", "VideoResponse",
     "AnalysisRequest", "TechniqueMetricSchema", "TechniqueErrorSchema", 
     "SuggestionSchema", "AnalysisResultSchema", "AnalysisResponse",
-    "HistoryItemResponse", "HistoryListResponse"
+    "HistoryItemResponse", "HistoryListResponse",
+    "ExerciseResponse"
 ]
